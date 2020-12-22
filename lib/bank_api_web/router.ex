@@ -30,7 +30,7 @@ defmodule BankApiWeb.Router do
     put "/operations/withdraw", OperationController, :withdraw
 
     get "/transactions/all", TransactionController, :all
-    get "/transactions/year/:year", TransactionController, :yeay
+    get "/transactions/year/:year", TransactionController, :year
     get "/transactions/year/:year/month/:month", TransactionController, :month
     get "/transactions/day/:day", TransactionController, :day
   end

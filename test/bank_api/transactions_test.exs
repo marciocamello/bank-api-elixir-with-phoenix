@@ -39,12 +39,17 @@ defmodule BankApi.TransactionsTest do
 
     test "update_transaction/2 with valid data updates the transaction" do
       transaction = transaction_fixture()
-      assert {:ok, %Transaction{} = transaction} = Transactions.update_transaction(transaction, @update_attrs)
+
+      assert {:ok, %Transaction{} = transaction} =
+               Transactions.update_transaction(transaction, @update_attrs)
     end
 
     test "update_transaction/2 with invalid data returns error changeset" do
       transaction = transaction_fixture()
-      assert {:error, %Ecto.Changeset{}} = Transactions.update_transaction(transaction, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Transactions.update_transaction(transaction, @invalid_attrs)
+
       assert transaction == Transactions.get_transaction!(transaction.id)
     end
 

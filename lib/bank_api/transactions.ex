@@ -32,17 +32,11 @@ defmodule BankApi.Transactions do
 
   """
   def year(year) do
-    year = String.to_integer(year)
-    start_date = Date.from_erl!({year, 01, 01})
-    end_date = Date.from_erl!({year, 12, 31})
-
-    query = from t in Transaction, where: t.date >= ^start_date and t.date <= ^end_date
-    Repo.all(query)
-    |> create_payload()
+    filter_query(Date.from_erl!({year, 01, 01}), Date.from_erl!({year, 12, 31}))
   end
 
   @doc """
-  Returns the list of transactions by year.
+  Returns the list of transactions by month.
 
   ## Examples
 
@@ -51,20 +45,22 @@ defmodule BankApi.Transactions do
 
   """
   def month(year, month) do
-    year = String.to_integer(year)
-    month = String.to_integer(month)
     start_date = Date.from_erl!({year, month, 01})
-
     days_in_month = start_date |> Date.days_in_month()
     end_date = Date.from_erl!({year, month, days_in_month})
 
+    filter_query(start_date, end_date)
+  end
+
+  def filter_query(start_date, end_date) do
     query = from t in Transaction, where: t.date >= ^start_date and t.date <= ^end_date
+
     Repo.all(query)
     |> create_payload()
   end
 
   @doc """
-  Returns the list of transactions by year.
+  Returns the list of transactions by day.
 
   ## Examples
 
