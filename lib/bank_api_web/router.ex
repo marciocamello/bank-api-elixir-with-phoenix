@@ -19,10 +19,16 @@ defmodule BankApiWeb.Router do
     get "/", HomeController, :index
   end
 
+  scope "/api/auth", BankApiWeb do
+    pipe_through :api
+
+    post "/signup", UserController, :signup
+    post "/signin", UserController, :signin
+  end
+
   scope "/api", BankApiWeb do
     pipe_through :api
 
-    post "/auth/signup", UserController, :signup
     get "/user", UserController, :show
     get "/users", UserController, :index
 
