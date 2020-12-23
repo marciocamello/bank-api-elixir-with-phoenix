@@ -9,6 +9,10 @@ defmodule BankApiWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :auth do
+    plug BankApi.Accounts.Auth.Pipeline
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -27,7 +31,7 @@ defmodule BankApiWeb.Router do
   end
 
   scope "/api", BankApiWeb do
-    pipe_through :api
+    pipe_through [:api, :auth]
 
     get "/user", UserController, :show
     get "/users", UserController, :index

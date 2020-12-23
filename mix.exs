@@ -46,7 +46,8 @@ defmodule BankApi.MixProject do
       {:comeonin, "~> 5.1"},
       {:argon2_elixir, "~> 2.0"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      {:guardian, "~> 2.0"}
+      {:guardian, "~> 2.0"},
+      {:poison, "~> 3.1"}
     ]
   end
 
