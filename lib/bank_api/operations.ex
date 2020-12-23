@@ -26,6 +26,7 @@ defmodule BankApi.Operations do
     case is_negative?(balance, value) do
       true ->
         {:error, "You cant't have negative balance!"}
+
       false ->
         operation
     end
