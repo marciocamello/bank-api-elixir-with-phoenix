@@ -9,14 +9,10 @@ defmodule BankApi.Operations do
   @transfer "transfer"
 
   def transfer(from, to_id, value) do
-    value = Decimal.new(value)
-
     operation_case(from.balance, value, perform_update(from, to_id, value))
   end
 
   def withdraw(from, value) do
-    value = Decimal.new(value)
-
     operation_case(from.balance, value, withdraw_operation(from, value))
   end
 

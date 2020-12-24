@@ -6,6 +6,7 @@ defmodule BankApiWeb.OperationController do
 
   def transfer(conn, %{"to_account_id" => to_id, "value" => value}) do
     user = Guardian.Plug.current_resource(conn)
+    value = Decimal.new(value)
     with {:ok, message} <- Operations.transfer(user.accounts, to_id, value) do
       conn
       |> render("success.json", message: message)
@@ -14,6 +15,7 @@ defmodule BankApiWeb.OperationController do
 
   def withdraw(conn, %{"value" => value}) do
     user = Guardian.Plug.current_resource(conn)
+    value = Decimal.new(value)
     with {:ok, message} <- Operations.withdraw(user.accounts, value) do
       conn
       |> render("success.json", message: message)

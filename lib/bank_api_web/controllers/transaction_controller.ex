@@ -1,9 +1,22 @@
 defmodule BankApiWeb.TransactionController do
   use BankApiWeb, :controller
-
   alias BankApi.Transactions
 
   action_fallback BankApiWeb.FallbackController
+
+  plug :check_permissions when action in [:all, :year, :month, :day]
+
+  defp check_permissions(conn ,_) do
+    user = Guardian.Plug.current_resource(conn)
+
+    if user.role == "admin" do
+      conn
+    else
+      conn
+      |> put_status(401)
+      |> json(%{error: "unauthorized"})
+    end
+  end
 
   def all(conn, _) do
     render(conn, "show.json", transaction: Transactions.all())

@@ -1,0 +1,7 @@
+/_build/
+/assets/node_modules/
+/deps/
+/doc/
+/priv/static/
+/test/
+/tmp/
